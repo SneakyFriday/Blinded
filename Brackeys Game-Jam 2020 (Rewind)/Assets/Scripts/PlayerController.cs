@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public Text deathsText;
     public Text goldText;
     public GameObject playcon;
+    public GameObject startButton;
 
     public float jumpForce = 5f;
     public float moveSpeed = 5f;
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public int coinValue = 5;
     public int monsterValue = 10;
     public int deathCount = 0;
+    
 
     Animator anim;
 
@@ -34,7 +37,9 @@ public class PlayerController : MonoBehaviour
     {
         if (startGame)
         {
+            startButton.SetActive(false);
             rb.transform.position += rb.transform.right * Time.deltaTime * moveSpeed;
+            Debug.Log("Spiel läuft " + startGame);
         }
     }
 
@@ -51,20 +56,20 @@ public class PlayerController : MonoBehaviour
         else if (coll.CompareTag("WaitButton"))
         {
             anim.SetBool("startMoving", false);
-            // startGame = false;
+            startGame = false;
             StartCoroutine(Waiting(3f));
         }
-        else if (coll.CompareTag("damage") || coll.CompareTag("enemy"))
+        if (coll.CompareTag("damage") || coll.CompareTag("enemy"))
         {
-            startGame = false;
             anim.SetBool("takingDamage", true);
             deathCount++;
             Debug.Log(deathCount);
             deathsText.text = "Deaths: " + deathCount;
             StartCoroutine(RestartGame(3f));
-            
+            startGame = false;
         }
-        else if(coll.CompareTag("coin"))
+        
+        if(coll.CompareTag("coin"))
         {
             currentGold += coinValue;
             goldText.text = "Gold: " + currentGold;
@@ -72,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
         }
         // Muss noch getestet werden. Animation funktioniert noch nicht ganz.
-        else if (coll.CompareTag("Goal"))
+        if (coll.CompareTag("Goal"))
         {
             startGame = false;
             playcon.GetComponentInParent<Animator>().SetBool("Goal", true);

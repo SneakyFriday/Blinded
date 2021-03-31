@@ -5,27 +5,27 @@ using UnityEngine;
 
 public class jumpButtonScript : MonoBehaviour
 {
-    private Transform jumpButton;
-    private Vector2 mousePos;
-    private Vector2 startPosition;
-    private float deltaX, deltaY;
+    private Transform _jumpButton;
+    private Vector2 _mousePos;
+    private Vector2 _startPosition;
+    private float _deltaX, _deltaY;
 
     public PlayerController pc;
     public static bool isLocked = false;
 
     void Start()
     {
-        startPosition = transform.position;
+        _startPosition = transform.position;
     }
 
     private void OnMouseDown()
     {
         if (!isLocked)
         {
-            deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
-            deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
+            _deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
+            _deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
         }
-        else if (pc.startGame)
+        if (pc.startGame)
         {
             isLocked = true;
         }
@@ -35,10 +35,10 @@ public class jumpButtonScript : MonoBehaviour
     {
         if (!isLocked)
         {
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector2(mousePos.x - deltaX, mousePos.y - deltaY);
+            _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector2(_mousePos.x - _deltaX, _mousePos.y - _deltaY);
         }
-        else if (pc.startGame)
+        if (pc.startGame)
         {
             isLocked = true;
         }
