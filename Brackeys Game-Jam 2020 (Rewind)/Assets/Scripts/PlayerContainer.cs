@@ -33,7 +33,7 @@ public class PlayerContainer : MonoBehaviour
     {
         if (startGame)
         {
-            rb.transform.position += rb.transform.right * Time.deltaTime * moveSpeed;
+            rb.transform.position += rb.transform.right * (Time.deltaTime * moveSpeed);
         }
     }
 
@@ -79,13 +79,13 @@ public class PlayerContainer : MonoBehaviour
             StartCoroutine(ChangeScene(3f));
         }*/
         else if (coll.CompareTag("ShrinkButton"))
-         {
-             startGame = false;
-             anim.SetBool("startMoving", false);
-             anim.SetBool("shrink", true);
-             StartCoroutine(PlayerGrow(2f));
-             transform.localScale = new Vector3(3, 3, 0);
-         }
+        {
+            startGame = false;
+            anim.SetBool("startMoving", false);
+            anim.SetBool("shrink", true);
+            StartCoroutine(PlayerGrow(2f));
+            transform.localScale = new Vector3(3, 3, 0);
+        }
     }
     public void GetStartet()
     {

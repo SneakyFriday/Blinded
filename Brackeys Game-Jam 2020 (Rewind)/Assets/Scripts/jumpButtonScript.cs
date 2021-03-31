@@ -10,6 +10,7 @@ public class jumpButtonScript : MonoBehaviour
     private Vector2 startPosition;
     private float deltaX, deltaY;
 
+    public PlayerController pc;
     public static bool isLocked = false;
 
     void Start()
@@ -24,6 +25,10 @@ public class jumpButtonScript : MonoBehaviour
             deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
             deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
         }
+        else if (pc.startGame)
+        {
+            isLocked = true;
+        }
     }
 
     private void OnMouseDrag()
@@ -32,6 +37,10 @@ public class jumpButtonScript : MonoBehaviour
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = new Vector2(mousePos.x - deltaX, mousePos.y - deltaY);
+        }
+        else if (pc.startGame)
+        {
+            isLocked = true;
         }
     }
 }

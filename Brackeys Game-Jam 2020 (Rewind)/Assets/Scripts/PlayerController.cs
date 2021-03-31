@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         else if (coll.CompareTag("WaitButton"))
         {
             anim.SetBool("startMoving", false);
-            startGame = false;
+            // startGame = false;
             StartCoroutine(Waiting(3f));
         }
         else if (coll.CompareTag("damage") || coll.CompareTag("enemy"))
